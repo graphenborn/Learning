@@ -27,34 +27,32 @@ class Calendar:
 
 
 class RectValue:
-    def __get__(instance, owner):
-        return instance.__value
 
-    def __set__(instance, value):
-        instance.__value = value
+    def __checkValue(value):
+        return isinstance(value, int)
+
+    def __set_name__(self, owner, name):
+        self.__name = name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__[self.__name]
+
+    def __set__(self, instance, value):
+        if RectValue.__checkValue(value):
+            instance.__dict__[self.__name] = value
+        else:
+            raise ValueError ("Координаты должны быть числами")
 
 
 class Rectangle:
     
-    __tLX = RectValue()
-    __tLY = RectValue()
-    __bRX = RectValue()
-    __bRY = RectValue()
+    x1 = RectValue()
+    y1 = RectValue()
+    x2 = RectValue()
+    y2 = RectValue()
 
-
-
-class People:
-    pass
-
-
-class Man(People):
-    def get_sex():
-        return 'm'
-        
-class Woman(People):
-    def get_sex():
-        return 'w'
-
-
-
-print(Woman.get_sex())
+    def __init__(self, x1, y1, x2, y2):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
