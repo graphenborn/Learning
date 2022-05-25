@@ -1,0 +1,1 @@
+normalize_phone = lambda x: x.replace("+", "").replace(" ", "").replace("(", "").replace(")", "").replace("-", "")
