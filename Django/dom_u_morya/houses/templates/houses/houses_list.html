@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block application %}
+    <form action="" method="get">
+    {{ form.as_p }}
+        <input type="submit" value="Поиск">
+    </form>
+{% for house in houses %}
+    <div>
+        <h2><a href="{% url 'house' house_id=house.id %}">{{ house.name }}</a></h2>
+        {% if house.photo %}
+            <img src="{{ house.photo.url }}" alt="{{ house.name }}">
+        {% endif %}
+        <div>{{ house.price }}</div>
+        <div>{{ house.description }}</div>
+        {% endfor %}
+{% endblock %}
